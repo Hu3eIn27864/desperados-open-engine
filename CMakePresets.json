@@ -1,0 +1,15 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {"major": 3, "minor": 25, "patch": 0},
+  "configurePresets": [
+    {"name":"core-tests","generator":"Ninja","binaryDir":"${sourceDir}/build/core-tests","cacheVariables":{"CMAKE_BUILD_TYPE":"Debug","DOE_BUILD_GAME":"OFF","DOE_BUILD_TESTS":"ON"}},
+    {"name":"desktop","generator":"Ninja","binaryDir":"${sourceDir}/build/desktop","cacheVariables":{"CMAKE_BUILD_TYPE":"RelWithDebInfo","DOE_BUILD_GAME":"ON","DOE_BUILD_TESTS":"ON"}}
+  ],
+  "buildPresets": [
+    {"name":"core-tests","configurePreset":"core-tests"},
+    {"name":"desktop","configurePreset":"desktop"}
+  ],
+  "testPresets": [
+    {"name":"core-tests","configurePreset":"core-tests","output":{"outputOnFailure":true}}
+  ]
+}

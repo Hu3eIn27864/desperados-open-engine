@@ -1,0 +1,22 @@
+name: Core CI
+on:
+  push:
+    branches: [main, "foundation/**"]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  core-tests:
+    name: Core tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DDOE_BUILD_GAME=OFF -DDOE_BUILD_TESTS=ON
+      - name: Build
+        run: cmake --build build --config Debug --parallel
+      - name: Test
+        run: ctest --test-dir build -C Debug --output-on-failure
